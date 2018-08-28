@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mybatis_test.mapper.ClasssMapper">
+
+    <select id="getClasssById1" resultType="com.example.mybatis_test.entity.Classs">
+        select * from classs where id=#{0}
+    </select>
+
+
+    <!--
+        将查询出来的包装成map key 是字段名  value是字段值
+        LinkedHashMap将map中的数据按插入时保存
+        -->
+    <select id="getClasssById2" resultType="java.util.LinkedHashMap">
+        select * from classs where id=#{0}
+    </select>
+
+    <select id="getClasssByLeverAndCode" resultType="java.util.LinkedHashMap">
+        select * from classs where class_level=#{level}
+        <if test="code!=null">
+            and class_code=#{code}
+        </if>
+    </select>
+
+    <insert id="insertClass" parameterType="com.example.mybatis_test.entity.Classs">
+        INSERT INTO `springboottest`.`classs` ( `class_name`, `class_code`, `class_level`)
+        VALUES ( #{class_name}, #{class_code}, #{class_level})
+
+        -- 当执行完插入语句后 执行selectKey 表示将id回填，Last_INSERT_ID()获取用户最新插入的id Last_INSERT_ID()是mysql内置函数
+        -- keyProperty 主键属性 keyColumn 主键名字  resultType 主键类型 order  AFTER 表示执行完上述 sql后  进行查询
+        <selectKey keyProperty="id" keyColumn="id" resultType="Integer" order="AFTER" >
+            select Last_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="updateClass" parameterType="com.example.mybatis_test.entity.Classs">
+        UPDATE `springboottest`.`classs` SET  `class_name`=#{class_name},
+         `class_code`=#{class_code}, `class_level`=#{class_level} WHERE (`id`=#{id});
+
+    </update>
+
+    <delete id="deleteClass" parameterType="Integer">
+        delete from classs where id=#{Integer}
+    </delete>
+</mapper>
