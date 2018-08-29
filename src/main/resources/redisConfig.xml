@@ -34,9 +34,22 @@
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
         </property>
 
-        <!--value序列化-->
+
         <property name="valueSerializer">
+            <!--对value string类型序列化-->
+            <!--<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>-->
+
+            <!--对value 对象类型的序列化-->
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"></bean>
+        </property>
+
+        <!--对hash key值的序列化-->
+        <property name="hashKeySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"></bean>
+        </property>
+        <!--对hash value值的序列化-->
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"></bean>
         </property>
     </bean>
 </beans>

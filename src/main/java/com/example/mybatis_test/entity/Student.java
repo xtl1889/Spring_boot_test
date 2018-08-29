@@ -23,6 +23,13 @@ public class Student {
     public Student() {
     }
 
+    public Student(Integer id, String code, String name, String sex) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.sex = sex;
+    }
+
     public Student(String name) {
         this.name = name;
     }
@@ -65,5 +72,13 @@ public class Student {
 
     public void setClasss(Classs classs) {
         this.classs = classs;
+    }
+
+    @Override
+    public String toString() {
+        return "id="+id+
+                ",code="+code+
+                ",name="+name+
+                ",sex="+sex;
     }
 }
