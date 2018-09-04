@@ -18,7 +18,7 @@
 
     <!--连接redis数据库的配置  usePool true使用连接池 false直连-->
     <bean id="redisConnectionConfig" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-        p:usePool="true" p:poolConfig-ref="poolConfig" p:hostName="192.168.92.129"
+        p:usePool="true" p:poolConfig-ref="poolConfig" p:hostName="192.168.92.131"
           p:port="7654" p:password="123456" p:database="1">
 
         <!--<property name="port" value="7654"></property>-->

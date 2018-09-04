@@ -3,6 +3,7 @@ package com.example.mybatis_test.service;
 import com.example.mybatis_test.entity.Classs;
 import com.example.mybatis_test.mapper.ClasssMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +22,10 @@ public class ClasssService {
     @Autowired
     ClasssMapper classsMapper;
 
-    public Classs getClasssById1(int id){
+    //缓存查找到的对象  默认情况下redis对象的序列化使用的是jdk序列化 要求对象实现Serializable接口
+    @Cacheable(value = "cla",key = "#id")
+    public Classs getClasssById1(Integer id){
+        System.out.println("id--------------"+id);
         return classsMapper.getClasssById1(id);
     }
 
